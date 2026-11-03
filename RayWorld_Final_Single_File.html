@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RayWorld | Into the Blue</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+:root{--navy:#041c2b;--deep:#062b40;--ocean:#07516a;--teal:#2ed6c4;--ice:#b9f5ed;--paper:#f1f8f7;--ink:#d9e9e8;--muted:#8da9ad;--line:rgba(153,220,215,.18)}
+body{margin:0;background:#061f30;color:var(--ink);font-family:"DM Sans",sans-serif}
+h1,h2,h3,.navbar-brand{font-family:"Space Grotesk",sans-serif}
+.ocean-nav{background:#031724;padding:14px 0;border-bottom:1px solid rgba(91,214,205,.16)}
+.navbar-brand{font-weight:700;letter-spacing:2px;font-size:1.2rem;color:#e9ffff}
+.brand-mark{color:var(--teal);font-size:1.35rem;margin-right:7px}
+.brand-light{color:#56cfc5}
+.nav-link{color:#b4c9ca!important;font-size:.9rem;font-weight:600;margin-left:18px}
+.nav-link:hover,.nav-link.active{color:var(--teal)!important}
+.hero-section{min-height:650px;position:relative;display:flex;align-items:center;overflow:hidden;background:#052a40 url("https://images.unsplash.com/photo-1530053969600-caed2596d242?auto=format&fit=crop&w=2000&q=90") center 48%/cover no-repeat}
+.hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,19,31,.94) 0%,rgba(3,35,51,.77) 52%,rgba(4,40,53,.25) 100%),linear-gradient(0deg,rgba(3,23,36,.5),transparent 35%)}
+.hero-content{position:relative;z-index:2;padding-top:75px;padding-bottom:95px}
+.eyebrow{color:var(--teal);font-size:.69rem;font-weight:700;letter-spacing:3px;margin-bottom:13px}
+.hero-section h1{font-size:clamp(3.4rem,8vw,6.8rem);font-weight:600;letter-spacing:-4px;line-height:.98;color:#f3ffff;margin:0 0 24px}
+.hero-section h1 span{color:#65ded2}
+.hero-copy{max-width:560px;color:#d1e5e5;font-size:1.08rem;line-height:1.8}
+.hero-actions{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:32px}
+.btn-sea{background:var(--teal);color:#032a39;padding:13px 22px;border-radius:4px;font-weight:700;border:1px solid var(--teal)}
+.btn-sea:hover{background:#d2fff8;color:#032a39}
+.btn-sea span{margin-left:15px}
+.hero-note{font-size:.8rem;color:#c0d8d8}
+.hero-bottom-label{position:absolute;bottom:22px;left:max(calc((100% - 1140px)/2),24px);font-size:.63rem;letter-spacing:2px;color:#b1d5d3}
+.intro-section{padding:100px 0;background:#071f30}
+.intro-section h2{font-size:clamp(2.6rem,5vw,4.3rem);line-height:1.05;letter-spacing:-2px;color:#f2ffff;margin:0 0 25px}
+.intro-section h2 span{color:#4dd2c6}
+.intro-copy{max-width:670px;color:#a9c1c4;line-height:1.9;font-size:.98rem}
+.text-link{color:var(--teal);text-decoration:none;font-weight:700;font-size:.9rem}
+.text-link:hover{color:#e1fffa}
+.text-link span{margin-left:10px}
+.ocean-fact{background:linear-gradient(145deg,#0b5267,#07364c);border:1px solid rgba(95,226,211,.25);padding:32px;border-radius:4px;min-height:300px;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.fact-index,.fact-bottom{font-size:.62rem;letter-spacing:2px;color:#8de5db}
+.fact-symbol{font-size:3rem;color:#5de0d2;margin:18px 0 4px}
+.ocean-fact h3{font-size:1.65rem;color:white}
+.ocean-fact p{color:#c0dada;line-height:1.7}
+.fact-line{height:1px;background:rgba(160,235,226,.22);margin:23px 0}
+.featured-section{background:#092b40;padding:85px 0 100px}
+.section-heading,.results-heading{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:32px}
+.section-heading h2,.results-heading h2{font-size:clamp(2rem,4vw,3rem);color:#f2ffff;letter-spacing:-1.5px;margin:0}
+.feature-card{height:340px;position:relative;overflow:hidden;border-radius:4px;background:#0a3c50}
+.feature-card:after{content:"";position:absolute;inset:35% 0 0;background:linear-gradient(transparent,rgba(1,15,24,.9))}
+.feature-card img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.feature-card:hover img{transform:scale(1.05)}
+.feature-caption{position:absolute;z-index:2;left:22px;bottom:22px}
+.feature-caption span{font-size:.64rem;letter-spacing:2px;color:#77e9dd}
+.feature-caption h3{font-size:1.55rem;color:white;margin:6px 0 0}
+footer{background:#031724;border-top:1px solid var(--line);padding:24px 0;color:#a5c0c2;font-size:.78rem;letter-spacing:1px}
+.search-hero{padding:70px 0 35px;background:radial-gradient(ellipse at 85% 5%,rgba(16,130,143,.32),transparent 38%),linear-gradient(130deg,#06263a,#073b50 75%,#062b40);border-bottom:1px solid var(--line)}
+.search-hero h1{font-size:clamp(3rem,6vw,5rem);letter-spacing:-3px;color:#f1ffff;margin:0}
+.search-intro{color:#afc9cb;margin:8px 0 24px}
+.search-box{max-width:720px;display:flex;align-items:center;background:#f0fbfa;border:1px solid #73dcd2;border-radius:4px;padding:5px 14px;box-shadow:0 12px 35px rgba(0,0,0,.16)}
+.search-symbol{font-size:1.7rem;color:#087a83;margin-right:10px}
+.search-box input{flex:1;min-width:0;border:0;outline:0;background:transparent;padding:13px 3px;color:#082c3e;font-family:"DM Sans",sans-serif}
+.search-box button{border:0;background:transparent;color:#31616a;font-size:1.5rem}
+.search-meta{max-width:720px;display:flex;justify-content:space-between;gap:15px;margin-top:12px;color:#85b7b7;font-size:.6rem;letter-spacing:1.6px}
+.results-section{padding-top:55px;padding-bottom:80px}
+.results-heading{align-items:center;margin-bottom:28px}
+.results-heading h2{font-size:2.2rem}
+#resultCount{font-family:"DM Sans",sans-serif;font-size:.9rem;color:#82aaa9;letter-spacing:0}
+.ray-card{background:#0a2b3d;border:1px solid rgba(131,203,199,.17);border-radius:4px;overflow:hidden;box-shadow:0 14px 36px rgba(0,0,0,.15);transition:transform .25s,border-color .25s}
+.ray-card:hover{transform:translateY(-5px);border-color:rgba(65,218,202,.6)}
+.ray-photo-wrap{height:230px;position:relative;background:#0b4255}
+.ray-photo-wrap img{width:100%;height:100%;object-fit:cover}
+.ray-number{position:absolute;right:14px;top:14px;background:rgba(2,24,36,.8);border:1px solid rgba(127,231,218,.4);padding:5px 9px;color:#9ff1e8;font-size:.72rem;letter-spacing:1px}
+.ray-card-body{padding:23px}
+.tag{display:inline-block;font-size:.6rem;letter-spacing:2px;font-weight:700;color:#62e0d2;background:rgba(46,214,196,.1);padding:6px 9px}
+.ray-card h3{font-size:1.42rem;color:#f1ffff;margin:13px 0 1px}
+.scientific{font-size:.82rem;color:#7fa7ac;margin-bottom:15px}
+.ray-description{font-size:.9rem;line-height:1.75;color:#b6cccd;min-height:90px}
+.detail-grid{border-top:1px solid var(--line);margin-top:18px;padding-top:15px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.detail-grid span{font-size:.58rem;letter-spacing:1.5px;color:#54cfc4;font-weight:700}
+.detail-grid p{font-size:.78rem;line-height:1.6;color:#a8c1c3;margin:5px 0 0}
+.source-link{display:inline-block;margin-top:19px;color:#69e2d5;text-decoration:none;font-size:.8rem;font-weight:700}
+.source-link:hover{color:white}
+.source-link small{font-weight:400;color:#88aaad}
+.no-results{text-align:center;padding:60px 15px;color:#9bbabc}
+.no-results div{font-size:3rem;color:var(--teal)}
+.no-results h3{color:white}
+.image-note{font-size:.78rem;color:#78999d;line-height:1.7}
+@media(max-width:767px){.hero-section{min-height:580px}.hero-section h1{letter-spacing:-2px}.intro-section{padding:65px 0}.featured-section{padding:65px 0}.section-heading,.results-heading{align-items:flex-start;flex-direction:column}.ray-description{min-height:0}.search-meta{font-size:.52rem}}
+
+/* Single-file layout safeguards */
+html{scroll-behavior:smooth} body{overflow-x:hidden} .container{width:100%;max-width:1140px;margin-left:auto;margin-right:auto;padding-left:15px;padding-right:15px} .row{display:flex;flex-wrap:wrap;margin-left:-.75rem;margin-right:-.75rem} .row>*{padding-left:.75rem;padding-right:.75rem;min-width:0} .ray-item{display:flex} .ray-card{width:100%;display:flex;flex-direction:column} .ray-card-body{display:flex;flex-direction:column;flex:1} .ray-photo-wrap img{display:block;width:100%;height:100%;object-fit:cover} .ray-description{min-height:0} .detail-grid{align-content:start} .source-link{margin-top:auto;padding-top:16px} img{max-width:100%} @media(max-width:767px){.container{padding-left:18px;padding-right:18px}.ray-item{width:100%}.detail-grid{grid-template-columns:1fr 1fr}.search-meta{flex-wrap:wrap}.search-hero h1{letter-spacing:-1.5px}}
+</style>
+</head>
+<body id="top">
+<nav class="navbar navbar-expand-lg navbar-dark ocean-nav">
+  <div class="container">
+    <a class="navbar-brand" href="#top"><span class="brand-mark">◉</span> RAY<span class="brand-light">WORLD</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#top">Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="#species">Species guide</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<header class="search-hero">
+  <div class="container">
+    <p class="eyebrow">A FIELD GUIDE TO THE OCEAN'S WINGED FISH</p>
+    <h1>Into the blue. Discover the rays.</h1>
+    <p class="search-intro">Meet eight extraordinary rays, from gentle filter-feeding giants to electric hunters. Search by name, habitat, diet or special feature.</p>
+    <div class="search-box">
+      <span class="search-symbol">⌕</span>
+      <input type="search" id="raySearch" placeholder="Search rays... try “manta”, “electric” or “reef”" aria-label="Search ray species">
+      <button id="clearSearch" type="button" aria-label="Clear search">×</button>
+    </div>
+    <div class="search-meta"><span>LIVE SPECIES SEARCH</span><span>08 SPECIES / ONE OCEAN</span></div>
+  </div>
+</header>
+<main id="species" class="container results-section">
+  <div class="results-heading">
+    <div><p class="eyebrow">THE COLLECTION</p><h2>Species field guide <span id="resultCount"></span></h2></div>
+    <a href="#top" class="text-link">← Back to home</a>
+  </div>
+  <div class="row g-4" id="rayList">
+    
+    <div class="col-md-6 col-xl-4 ray-item" data-search="giant manta ray mobula birostris manta ray the giant manta ray is the largest living ray. it glides through open water using enormous wing-like pectoral fins and feeds by filtering tiny animals from the sea. tropical and subtropical open oceans, offshore islands and productive coastal waters zooplankton and other tiny drifting animals two fleshy cephalic lobes beside its mouth help guide food-rich water inward.">
+      <article class="ray-card h-100" id="manta">
+        <div class="ray-photo-wrap">
+          <img src="https://www.fisheries.noaa.gov/s3/styles/full_width/s3/dam-migration/manta_ray_flower_garden_banks.jpg?itok=2RQE8cfB" alt="Giant manta ray swimming at Flower Garden Banks" loading="lazy"
+               onerror="this.onerror=null;this.src='https://placehold.co/900x600/082b43/8de9e3?text=Ray+photo+unavailable';">
+          <span class="ray-number">01</span>
+        </div>
+        <div class="ray-card-body">
+          <span class="tag">MANTA RAY</span>
+          <h3>Giant Manta Ray</h3>
+          <p class="scientific">Mobula birostris</p>
+          <p class="ray-description">The giant manta ray is the largest living ray. It glides through open water using enormous wing-like pectoral fins and feeds by filtering tiny animals from the sea.</p>
+          <div class="detail-grid">
+            <div><span>HABITAT</span><p>Tropical and subtropical open oceans, offshore islands and productive coastal waters</p></div>
+            <div><span>DIET</span><p>Zooplankton and other tiny drifting animals</p></div>
+            <div><span>SIZE</span><p>Wingspan can reach about 8 metres (26 feet)</p></div>
+            <div><span>FEATURE</span><p>Two fleshy cephalic lobes beside its mouth help guide food-rich water inward.</p></div>
+          </div>
+          <a class="source-link" href="https://www.fisheries.noaa.gov/species/giant-manta-ray" target="_blank" rel="noopener">Read species source ↗ <small>(NOAA Fisheries)</small></a>
+        </div>
+      </article>
+    </div>
+
+    <div class="col-md-6 col-xl-4 ray-item" data-search="reef manta ray mobula alfredi manta ray the reef manta is smaller than the giant manta and is often seen visiting coral reefs and cleaning stations. it is a graceful filter feeder. tropical and subtropical coastal reefs, islands and lagoons in the indo-pacific zooplankton and small organisms suspended in seawater its dark back and pale underside create a striking contrast; belly markings can help identify individuals.">
+      <article class="ray-card h-100" id="reef-manta">
+        <div class="ray-photo-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Reef_manta_ray_(Manta_alfredi)_-_49877611173.jpg" alt="Reef manta ray Mobula alfredi underwater" loading="lazy"
+               onerror="this.onerror=null;this.src='https://placehold.co/900x600/082b43/8de9e3?text=Ray+photo+unavailable';">
+          <span class="ray-number">02</span>
+        </div>
+        <div class="ray-card-body">
+          <span class="tag">MANTA RAY</span>
+          <h3>Reef Manta Ray</h3>
+          <p class="scientific">Mobula alfredi</p>
+          <p class="ray-description">The reef manta is smaller than the giant manta and is often seen visiting coral reefs and cleaning stations. It is a graceful filter feeder.</p>
+          <div class="detail-grid">
+            <div><span>HABITAT</span><p>Tropical and subtropical coastal reefs, islands and lagoons in the Indo-Pacific</p></div>
+            <div><span>DIET</span><p>Zooplankton and small organisms suspended in seawater</p></div>
+            <div><span>SIZE</span><p>Wingspan commonly reaches several metres; smaller than the giant manta</p></div>
+            <div><span>FEATURE</span><p>Its dark back and pale underside create a striking contrast; belly markings can help identify individuals.</p></div>
+          </div>
+          <a class="source-link" href="https://commons.wikimedia.org/wiki/File:Reef_manta_ray_(Manta_alfredi)_-_49877611173.jpg" target="_blank" rel="noopener">Read species source ↗ <small>(Wikimedia Commons)</small></a>
+        </div>
+      </article>
+    </div>
+
+    <div class="col-md-6 col-xl-4 ray-item" data-search="spotted eagle ray aetobatus narinari eagle ray the spotted eagle ray has a dark, diamond-shaped body covered with pale spots. its pointed pectoral fins make it look as if it is flying underwater. warm coastal waters, bays, estuaries and coral reefs clams, oysters, crabs, shrimp, squid and other bottom-dwelling animals it uses plate-like teeth to crush hard-shelled prey and may leap out of the water.">
+      <article class="ray-card h-100" id="eagle">
+        <div class="ray-photo-wrap">
+          <img src="https://www.floridamuseum.ufl.edu/wp-content/uploads/sites/66/2017/05/Aetobatus-narinari-01.jpg" alt="Spotted eagle ray with pale spots on its dark back" loading="lazy"
+               onerror="this.onerror=null;this.src='https://placehold.co/900x600/082b43/8de9e3?text=Ray+photo+unavailable';">
+          <span class="ray-number">03</span>
+        </div>
+        <div class="ray-card-body">
+          <span class="tag">EAGLE RAY</span>
+          <h3>Spotted Eagle Ray</h3>
+          <p class="scientific">Aetobatus narinari</p>
+          <p class="ray-description">The spotted eagle ray has a dark, diamond-shaped body covered with pale spots. Its pointed pectoral fins make it look as if it is flying underwater.</p>
+          <div class="detail-grid">
+            <div><span>HABITAT</span><p>Warm coastal waters, bays, estuaries and coral reefs</p></div>
+            <div><span>DIET</span><p>Clams, oysters, crabs, shrimp, squid and other bottom-dwelling animals</p></div>
+            <div><span>SIZE</span><p>Wingspan may reach around 3 metres (10 feet)</p></div>
+            <div><span>FEATURE</span><p>It uses plate-like teeth to crush hard-shelled prey and may leap out of the water.</p></div>
+          </div>
+          <a class="source-link" href="https://www.floridamuseum.ufl.edu/discover-fish/species-profiles/spotted-eagle-ray/" target="_blank" rel="noopener">Read species source ↗ <small>(Florida Museum)</small></a>
+        </div>
+      </article>
+    </div>
+
+    <div class="col-md-6 col-xl-4 ray-item" data-search="blue-spotted ribbontail ray taeniura lymma stingray a small reef ray with bright blue spots across its oval body and blue markings along its tail. it usually hides in crevices or rests on sandy patches near reefs. coral reefs and sandy flats in the indo-pacific crabs, shrimp, molluscs, worms and small fish it has venomous tail spines used for defence, so it should never be touched.">
+      <article class="ray-card h-100" id="blue">
+        <div class="ray-photo-wrap">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/f/f7/Blue_spotted_stingray.jpg" alt="Blue-spotted ribbontail ray with bright blue spots" loading="lazy"
+               onerror="this.onerror=null;this.src='https://placehold.co/900x600/082b43/8de9e3?text=Ray+photo+unavailable';">
+          <span class="ray-number">04</span>
+        </div>
+        <div class="ray-card-body">
+          <span class="tag">STINGRAY</span>
+          <h3>Blue-spotted Ribbontail Ray</h3>
+          <p class="scientific">Taeniura lymma</p>
+          <p class="ray-description">A small reef ray with bright blue spots across its oval body and blue markings along its tail. It usually hides in crevices or rests on sandy patches near reefs.</p>
+          <div class="detail-grid">
+            <div><span>HABITAT</span><p>Coral reefs and sandy flats in the Indo-Pacific</p></div>
+            <div><span>DIET</span><p>Crabs, shrimp, molluscs, worms and small fish</p></div>
+            <div><span>SIZE</span><p>Usually about 30–35 centimetres (12–14 inches) across</p></div>
+            <div><span>FEATURE</span><p>It has venomous tail spines used for defence, so it should never be touched.</p></div>
+          </div>
+          <a class="source-link" href="https://www.floridamuseum.ufl.edu/discover-fish/species-profiles/bluespotted-ribbontail-ray/" target="_blank" rel="noopener">Read species source ↗ <small>(Florida Museum)</small></a>
+        </div>
+      </article>
+    </div>
+
+    <div class="col-md-6 col-xl-4 ray-item" data-search="southern stingray hypanus americanus stingray the southern stingray has a flat, diamond-shaped body, a sandy brown upper surface and a long whip-like tail. it can bury itself in sand for camouflage. shallow sandy and muddy bottoms in the western atlantic and caribbean crabs, shrimp, worms, molluscs and small fish it stirs the seabed with its fins to uncover food and may bury itself under sand.">
+      <article class="ray-card h-100" id="southern">
+        <div class="ray-photo-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Hypanus_americanus_447371699.jpg" alt="Southern stingray Hypanus americanus in clear tropical water" loading="lazy"
+               onerror="this.onerror=null;this.src='https://placehold.co/900x600/082b43/8de9e3?text=Ray+photo+unavailable';">
+          <span class="ray-number">05</span>
+        </div>
+        <div class="ray-card-body">
+          <span class="tag">STINGRAY</span>
+          <h3>Southern Stingray</h3>
+          <p class="scientific">Hypanus americanus</p>
+          <p class="ray-description">The southern stingray has a flat, diamond-shaped body, a sandy brown upper surface and a long whip-like tail. It can bury itself in sand for camouflage.</p>
+          <div class="detail-grid">
+            <div><span>HABITAT</span><p>Shallow sandy and muddy bottoms in the western Atlantic and Caribbean</p></div>
+            <div><span>DIET</span><p>Crabs, shrimp, worms, molluscs and small fish</p></div>
+            <div><span>SIZE</span><p>Disc width can reach roughly 2 metres (about 6.5 feet)</p></div>
+            <div><span>FEATURE</span><p>It stirs the seabed with its fins to uncover food and may bury itself under sand.</p></div>
+          </div>
+          <a class="source-link" href="https://www.floridamuseum.ufl.edu/discover-fish/species-profiles/southern-stingray/" target="_blank" rel="noopener">Read species source ↗ <small>(Florida Museum)</small></a>
+        </div>
+      </article>
+    </div>
+
+    <div class="col-md-6 col-xl-4 ray-item" data-search="bat ray myliobatis californica eagle ray the bat ray has broad triangular pectoral fins that resemble wings. it uses its strong jaws and flat teeth to crush shellfish living in the seabed. eastern pacific coastal waters, bays, estuaries and sandy or muddy bottoms clams, crabs, shrimp, worms and other bottom-dwelling invertebrates it often searches for food by digging into soft seabed sediment.">
+      <article class="ray-card h-100" id="bat">
+        <div class="ray-photo-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Myliobatis_californica_channel_islands.jpg" alt="Bat ray Myliobatis californica swimming underwater" loading="lazy"
+               onerror="this.onerror=null;this.src='https://placehold.co/900x600/082b43/8de9e3?text=Ray+photo+unavailable';">
+          <span class="ray-number">06</span>
+        </div>
+        <div class="ray-card-body">
+          <span class="tag">EAGLE RAY</span>
+          <h3>Bat Ray</h3>
+          <p class="scientific">Myliobatis californica</p>
+          <p class="ray-description">The bat ray has broad triangular pectoral fins that resemble wings. It uses its strong jaws and flat teeth to crush shellfish living in the seabed.</p>
+          <div class="detail-grid">
+            <div><span>HABITAT</span><p>Eastern Pacific coastal waters, bays, estuaries and sandy or muddy bottoms</p></div>
+            <div><span>DIET</span><p>Clams, crabs, shrimp, worms and other bottom-dwelling invertebrates</p></div>
+            <div><span>SIZE</span><p>Can grow to around 1.8 metres (6 feet) across</p></div>
+            <div><span>FEATURE</span><p>It often searches for food by digging into soft seabed sediment.</p></div>
+          </div>
+          <a class="source-link" href="https://www.noaa.gov/noaa-collections/photo-library/sanc0046jpg" target="_blank" rel="noopener">Read species source ↗ <small>(NOAA Photo Library)</small></a>
+        </div>
+      </article>
+    </div>
+
+    <div class="col-md-6 col-xl-4 ray-item" data-search="cownose ray rhinoptera bonasus eagle ray cownose rays are social rays often seen swimming in large groups. their head has two rounded lobes that give the front of the body a cow-nose appearance. warm coastal waters, bays and estuaries in the western atlantic clams, oysters, hard-shelled molluscs and other bottom animals they can form large schools and use crushing tooth plates to feed on shellfish.">
+      <article class="ray-card h-100" id="cownose">
+        <div class="ray-photo-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cownose_Rays.jpg" alt="Group of cownose rays swimming together" loading="lazy"
+               onerror="this.onerror=null;this.src='https://placehold.co/900x600/082b43/8de9e3?text=Ray+photo+unavailable';">
+          <span class="ray-number">07</span>
+        </div>
+        <div class="ray-card-body">
+          <span class="tag">EAGLE RAY</span>
+          <h3>Cownose Ray</h3>
+          <p class="scientific">Rhinoptera bonasus</p>
+          <p class="ray-description">Cownose rays are social rays often seen swimming in large groups. Their head has two rounded lobes that give the front of the body a cow-nose appearance.</p>
+          <div class="detail-grid">
+            <div><span>HABITAT</span><p>Warm coastal waters, bays and estuaries in the western Atlantic</p></div>
+            <div><span>DIET</span><p>Clams, oysters, hard-shelled molluscs and other bottom animals</p></div>
+            <div><span>SIZE</span><p>Wingspan can reach around 1 metre (3 feet)</p></div>
+            <div><span>FEATURE</span><p>They can form large schools and use crushing tooth plates to feed on shellfish.</p></div>
+          </div>
+          <a class="source-link" href="https://commons.wikimedia.org/wiki/File:Cownose_Rays.jpg" target="_blank" rel="noopener">Read species source ↗ <small>(Wikimedia Commons)</small></a>
+        </div>
+      </article>
+    </div>
+
+    <div class="col-md-6 col-xl-4 ray-item" data-search="marbled electric ray torpedo marmorata electric ray the marbled electric ray has a rounded disc and a patterned back. special electric organs on each side of its head can produce an electric shock to stun prey or discourage predators. eastern atlantic and mediterranean seabeds, often on sandy or muddy bottoms small fish and bottom-dwelling animals unlike stingrays, it relies on electric organs rather than a stinging tail spine for defence and hunting.">
+      <article class="ray-card h-100" id="electric">
+        <div class="ray-photo-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Torpedo_marmorata_portugal.jpg" alt="Marbled electric ray Torpedo marmorata" loading="lazy"
+               onerror="this.onerror=null;this.src='https://placehold.co/900x600/082b43/8de9e3?text=Ray+photo+unavailable';">
+          <span class="ray-number">08</span>
+        </div>
+        <div class="ray-card-body">
+          <span class="tag">ELECTRIC RAY</span>
+          <h3>Marbled Electric Ray</h3>
+          <p class="scientific">Torpedo marmorata</p>
+          <p class="ray-description">The marbled electric ray has a rounded disc and a patterned back. Special electric organs on each side of its head can produce an electric shock to stun prey or discourage predators.</p>
+          <div class="detail-grid">
+            <div><span>HABITAT</span><p>Eastern Atlantic and Mediterranean seabeds, often on sandy or muddy bottoms</p></div>
+            <div><span>DIET</span><p>Small fish and bottom-dwelling animals</p></div>
+            <div><span>SIZE</span><p>Usually grows to several tens of centimetres; large individuals can approach 1 metre</p></div>
+            <div><span>FEATURE</span><p>Unlike stingrays, it relies on electric organs rather than a stinging tail spine for defence and hunting.</p></div>
+          </div>
+          <a class="source-link" href="https://commons.wikimedia.org/wiki/File:Torpedo_marmorata_portugal.jpg" target="_blank" rel="noopener">Read species source ↗ <small>(Wikimedia Commons)</small></a>
+        </div>
+      </article>
+    </div>
+  </div>
+  <div id="noResults" class="no-results d-none"><div>⌕</div><h3>No species found</h3><p>Try a different name or keyword, such as “manta”, “spots” or “seafloor”.</p></div>
+  <p class="image-note mt-5">Species descriptions are simplified for learning. Photographs link to the named species and are hosted by NOAA, Florida Museum and Wikimedia Commons. Check each image's reuse licence and credit requirements before publishing.</p>
+</main>
+<footer><div class="container d-flex flex-wrap justify-content-between gap-2"><span>◉ RAYWORLD — INTO THE BLUE</span><span>Explore · Learn · Protect</span></div></footer>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// jQuery powers the live ray search. JavaScript reads an optional ?q= search term.
+$(document).ready(function () {
+    function filterRays() {
+        var searchText = $("#raySearch").val().toLowerCase().trim();
+        var visibleCount = 0;
+
+        $(".ray-item").each(function () {
+            var rayInfo = $(this).attr("data-search").toLowerCase();
+            if (rayInfo.includes(searchText)) {
+                $(this).removeClass("d-none");
+                visibleCount++;
+            } else {
+                $(this).addClass("d-none");
+            }
+        });
+
+        $("#resultCount").text(" / " + visibleCount + " found");
+        $("#noResults").toggleClass("d-none", visibleCount !== 0);
+    }
+
+    if ($("#raySearch").length) {
+        var params = new URLSearchParams(window.location.search);
+        $("#raySearch").val(params.get("q") || "");
+        filterRays();
+
+        $("#raySearch").on("input", filterRays);
+        $("#clearSearch").on("click", function () {
+            $("#raySearch").val("");
+            filterRays();
+            $("#raySearch").focus();
+        });
+    }
+});
+</script>
+</body>
+</html>
